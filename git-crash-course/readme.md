@@ -298,3 +298,11 @@ To push your remote branch like which one you create .
 ```sh
 git push -u origin branch-name
 ```
+
+## Pull
+
+The git pull command functions to update a local Git repository with changes from a remote repository. It is a convenience command that combines two other Git commands: git fetch and git merge .
+
+```sh
+git pull
+```
