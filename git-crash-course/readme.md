@@ -143,7 +143,7 @@ git push origin dev --force-with-lease
 To see your local history .
 
 ```sh
-git log --online
+git log --onleine
 ```
 
 When you set your global editor .
