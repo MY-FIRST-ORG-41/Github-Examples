@@ -138,7 +138,8 @@ And even on a third line.
 [![Visit My YouTube Channel](img.shields.io)](https://www.youtube.com/@MuneebAhmad-z9y)
 
 <!-- Instagram Icon -->
-[![Instagram](img.shields.io)](https://www.instagram.com)
+[![Follow on Instagram](img.shields.io)](https://www.instagram.com)
+
 
 
 ## AutoList
