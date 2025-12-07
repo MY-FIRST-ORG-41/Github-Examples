@@ -143,7 +143,7 @@ And even on a third line.
 - [ ] Bold
 - [ ] Italic
 
-</detail>
+</details>
 
 This is uses in issues for genrating autolist they are genrating an autolist for us. In the right side of subheadings of todoList we have a three dots when we hower on these dots they shows us genrate a new issue or
 genrate a sub issue etc. when we click it they genrate an issue for us.
