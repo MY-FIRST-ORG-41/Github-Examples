@@ -8,8 +8,10 @@
 - [Tables](#tables)
 - [Lists](#lists)
 - [Links](#links)
+- [Auto lists](#autolist)
+- [Auto Links](#autolinks)
 - Images
-- Auto lists
+
 
 https://github.github.com/gfm/
 
@@ -132,3 +134,36 @@ And even on a third line.
 
 [secret page](secret.md)
 
+## AutoList
+
+<details><summary>My TodoList</summary>
+
+- [ ] List
+- [ ] Heading
+- [ ] Bold
+- [ ] Italic
+
+</detail>
+
+This is uses in issues for genrating autolist they are genrating an autolist for us. In the right side of subheadings of todoList we have a three dots when we hower on these dots they shows us genrate a new issue or
+genrate a sub issue etc. when we click it they genrate an issue for us.
+
+For example link is given below:
+
+https://github.com/m71443537-a11y/Github-Examples/issues/8
+
+## AutoLinks
+
+GitHub's autolink feature allows for the automatic creation of clickable links within issues.
+
+we genrate an autolink like this.
+
+(link of repo in which you have an issue) (number of issue) 
+
+link of repo is this(m71443537-a11y/Github-Examples)
+
+number of an issue is this(#9)
+
+m71443537-a11y/Github-Examples#9
+
+Now they create an auto link for us.
