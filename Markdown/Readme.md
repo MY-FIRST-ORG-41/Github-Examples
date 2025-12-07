@@ -134,6 +134,13 @@ And even on a third line.
 
 [secret page](secret.md)
 
+<!-- YouTube Icon -->
+[![Visit My YouTube Channel](img.shields.io)](https://www.youtube.com/@MuneebAhmad-z9y)
+
+<!-- Instagram Icon -->
+[![Instagram](img.shields.io)](https://www.instagram.com)
+
+
 ## AutoList
 
 <details><summary>My TodoList</summary>
