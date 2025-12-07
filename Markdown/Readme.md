@@ -134,13 +134,10 @@ And even on a third line.
 
 [secret page](secret.md)
 
-<!-- YouTube Icon -->
-[![Visit My YouTube Channel](<i class="fa-brands fa-youtube" style="color: #FF0000;"></i>)](https://www.youtube.com/@MuneebAhmad-z9y)
-
-<!-- Instagram Icon -->
-[![Follow on Instagram](img.shields.io)](https://www.instagram.com)
-
-
+[![YouTube](https://img.shields.io/badge/-_-red?logo=youtube&logoColor=white&style=flat)](https://www.youtube.com/@MuneebAhmad-z9y)
+[![Instagram](https://img.shields.io/badge/-_-purple?logo=instagram&logoColor=white&style=flat)](https://www.instagram.com/)
+[![Google](https://img.shields.io/badge/-_-silver?logo=google&logoColor=554&style=flat)](https://www.google.com)
+[![Facebook](https://img.shields.io/badge/-_-white?logo=facebook&logoColor=1877F2&style=flat)](https://www.facebook.com)
 
 ## AutoList
 
