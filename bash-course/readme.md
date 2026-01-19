@@ -2,6 +2,18 @@
 
 ## Bash
 >  The standard command-line shell and scripting language used on most Linux systems. It is the program that acts as the REPL in a typical terminal session.
+
+In Bash, the dash (-) or double-dash (--) is used to distinguish options (also called "flags") from the actual data you want to process. 
+
+Why do we mix alphabets with it?
+Mixing letters with dashes tells a command how to behave rather than what to act on.
+
+Single Dash (-) for Short Options: These are single letters used for speed. For example, read -r tells the read command to use the "raw" option.
+
+Double Dash (--) for Long Options: These use full words to make scripts easier to read. For example, ls --all is the same as ls -a, but it is much clearer to someone reading your code.
+
+Chaining: You can often combine short options to save time. Typing ls -la is a shortcut for typing ls -l -a.
+
 ## REPL
 >  Stans for `read eval print loop` An interactive software environment that reads user input, executes (evaluates) it, displays the result (prints), and repeats this process (loops). Bash is a program that uses this structure.
 ## Linux
@@ -77,10 +89,16 @@ Use this if you want to delete the folder forcefully without being prompted for 
 
  ## Basic file manipulation
 
- To rename the file we use mv command.
+ To rename or move the file we use mv command.
  ```sh
  mv file-name that one you rename and file-name  that renamed your file
  ```
+
+ To copy the file you use.
+ ```sh
+ cp data-file-name empty-file-name
+ ```
+
  mv command is dangerous if you have already have a file of same name mv overwrite your previous file with new file.
 
  If you have many files of same name in any folder and you want to delete all the files in one go.
@@ -153,6 +171,16 @@ When we check the data under any file we use.
 ```sh
 cat file-name
 ```
+we also use.
+```sh
+./file-name
+```
+
+If you type cat -n myname, the -n tells the computer to use the option to show line numbers
+```sh
+cat -n myname
+```
+
 they show all the data.
 
 When we grep or get specific data within a file we use.
@@ -329,9 +357,182 @@ if you write anything to vim you use `i` now you go to the insert form and when 
 
 we have a shortcut keys in vim to delete and paste new-line etc.
 ```sh
-dd is use to delete a line
-p is used to paste a line 
-o is use to go to a brand new line
-shift+o is used to got backward to a brand new line
+dd is use to delete a line.
+p is used to paste a line.
+o is use to go to a brand new line.
+shift+o is used to got backward to a brand new line.
 . period is use for do the current command task like if you press dd to delete a line and then you press period they delete your line and if you press p to paste a line and then you press period thy paste your line.
+```
+
+we create script on vim. go to vim using vim file-name and write any command under the vim text editor and save it and when you run bash file-name they vim run your command automatically that command you give under the vim.
+```sh
+vim file-name
+under the vim i write `ls` and save the file.
+when i write `bash file-name` they use `ls` automatically.
+```
+you also use bat for full output like syntax highlighting.
+```sh
+bat file-name
+```
+
+## File Permissions
+
+we check over file have permission or not by using
+```sh
+ls -l
+```
+`-l` is using for long `ls -l` means long listing.
+
+if your syntax is looking like this means your file have permission.
+```sh
+-rwxrwxrwx
+```
+and if they look like this meand permission is denied of this file.
+```sh
+-rw-r--r--
+```
+
+To give the permission to your file you use.
+```sh
+chmod +x file-name
+```
+
+To give forcefully permission to a file you use.
+```sh
+chmod 755 file-name
+```
+now you run `./file-name` they show you the data inside your file.
+
+if your vim text editor show you syntax erorr of bash so in text editor give the path of bash find echo $SHELL command for path finding and then give this path to the text editor like this `#!/bin/bash` like this.
+
+## Scripting
+
+We have syntax checker command if you want to check the syntax of any bash script you use.
+```sh
+bash -n file-name
+echo $?
+```
+
+when you take a input form user you use read.
+```sh
+read variable-name
+```
+and when you press `enter` they wait you for give any name when you give name they store that name in the variable you give and you see that name using echo $v-name.
+
+Instead of a blank screen, you can ask a question using -p:
+```sh
+read -p "What is your favorite color? " color
+echo "You chose $color!"
+```
+
+if you check many flags working you use.
+```sh
+help test
+```
+
+In Bash, $@ is a special parameter used to represent all arguments passed to a script or function means when you use loop instead of giving many paratmeters name for the argumnets use this they represent all the arguments passed for loop.
+```sh
+"$@"
+```
+
+## Loops
+syntax of loop.
+>#### For loop
+```sh
+for variable in list_of_items
+do
+    # Commands to be executed
+done
+```
+```sh
+for i in {1..5}
+do
+    echo "Iteration $i"
+done
+```
+>#### While loop
+```sh
+while [ condition ]
+do
+    # Commands to be executed
+done
+```
+```sh
+count=1
+while [ $count -le 5 ]
+do
+    echo "Count is $count"
+    ((count++))
+done
+```
+>#### Until loop
+```sh
+until [ condition ]
+do
+  # Commands to be executed until the condition is true
+done
+```
+```sh
+count=1
+until [ $count -gt 5 ]
+do
+  echo "Count is $count"
+  ((count++))
+done
+```
+>#### Loop with continue and break
+```sh
+for i in {1..5}
+do
+  if [ $i -eq 3 ]; then
+    continue # Skip the rest of the commands in this iteration
+  fi
+  echo "Number: $i"
+  if [ $i -eq 4 ]; then
+    break # Exit the loop entirely
+  fi
+done
+```
+
+## Functions
+
+syntax of functions in bash.
+```sh
+function_name () {
+  # Commands to be executed within the function
+}
+```
+
+## Conditionals
+
+The syntax of conditionals.
+```sh
+if [ condition ]; then
+    # commands to run if true
+elif [ condition2 ]; then
+    # commands to run if condition1 is false and condition2 is true
+else
+    # commands to run if all previous conditions are false
+fi
+```
+```sh
+case "$variable" in
+    pattern1)
+        # commands
+        ;;
+    pattern2|pattern3)
+        # commands
+        ;;
+    *)
+        # default commands
+        ;;
+esac
+```
+```sh
+if [ "$1" == "hello" ]; then
+    echo "You said hello!"
+else
+    echo "You said something else."
+fi  # This 'fi' closes the entire 'if' block above
+```
 
