@@ -42,6 +42,13 @@ ls command is used to list the files of working directory.
 ls
 ```
 
+If you check the file is exist or not you use.
+```sh
+test -f file-name
+[[ -f file-name ]]
+[[ -f file-name ]] && echo if exists
+```
+
 when you stop running program you that was run for a long time you use.
 ```sh
 command-name ^C
@@ -233,6 +240,12 @@ cat file-name | grep -i data | grep data
 ```
 this is a query with pipeline. you use pipeliines according to your need.
 
+we also use `>` like pipeline.
+```sh
+cat file-name > empty-file-name
+```
+
+
 ## Paging Files
 
 when you add paging you use less.
@@ -412,6 +425,7 @@ We have syntax checker command if you want to check the syntax of any bash scrip
 bash -n file-name
 echo $?
 ```
+if file exists `echo $?` give `0` and if not exists they give `1`.
 
 when you take a input form user you use read.
 ```sh
@@ -535,4 +549,155 @@ else
     echo "You said something else."
 fi  # This 'fi' closes the entire 'if' block above
 ```
+
+if you write abc x to z so you don't need to write all the abc you only need to use.
+```sh
+A..z
+1..10
+```
+they write all the abc and 1 to 10 counting for you.
+
+## Input and output
+
+when you fine decimal no of your word etc you use.
+```sh
+xxz
+hexdump
+od
+```
+
+When you run echo -n hello, the result hellomuneebahmad@DESKTOP-IVD4ROP... occurs because the -n flag tells the terminal not to move to a new line after printing the text.
+```sh
+echo -n data
+```
+This -n flag suppresses that newline means stop the newline that comes after end.
+
+# Chapter 3
+
+## Recap
+
+practice the previous commands and then go further.
+
+# Chapter 4
+
+## Case statements
+
+Syntax of case statements.
+```sh
+case "$variable" in
+    pattern1)
+        # commands
+        ;;
+    pattern2|pattern3)
+        # commands
+        ;;
+    *)
+        # default commands
+        ;;
+esac
+```
+
+# Chapter 4
+
+## Indexed arrays
+
+Declare an array with elements.
+```sh
+my_array=("apple" "banana" "cherry")
+```
+
+Declare an empty array.
+```sh
+declare -a another_array
+```
+
+Assign individual elements.
+```sh
+another_array[0]="first"
+another_array[1]="second"
+```
+
+Access the elements
+```sh
+echo ${my_array[0]}
+echo ${my_array[1]}
+echo ${my_array[-1]}
+```
+
+Expands each element to a separate word (recommended for loops)
+```sh
+echo "${my_array[@]}"
+```
+Expands to a single word with all elements separated by the first character of IFS (Internal Field Separator)
+```sh
+echo "${my_array[*]}"
+```
+
+Append new elements to the end
+```sh
+my_array+=("date" "elderberry")
+```
+Remove a specific element
+```sh
+unset my_array[1]
+```
+Remove the entire array
+```sh
+unset my_array
+```
+Getting Array Length (Number of elements):
+```sh
+echo ${#my_array[@]}
+echo ${#variable-name}
+```
+`#` is working like a length function in bash they tell us the length of any variable or etc.
+
+## Associative arrays
+
+Associative arrays must be explicitly declared with declare -A.
+```sh
+declare -A assoc_array
+assoc_array[key1]="value1"
+assoc_array[key2]="value2"
+```
+
+Compound assignment
+```sh
+declare -A colors=([red]="FF0000" [blue]="0000FF")
+```
+Accessing elements.
+```sh
+echo ${colors[red]}
+```
+Accessing All Keys (Indices):
+```sh
+echo "${!colors[@]}"
+```
+
+## IFS variables
+
+The IFS (Internal Field Separator) variable in Bash is a special shell variable that defines the character or characters used as delimiters to split strings into words or fields.
+
+Set IFS to a comma for this single command
+```sh
+line="field1,field2,field3"
+IFS=',' read -r var1 var2 var3 <<< "$line"
+echo "Var1: $var1, Var2: $var2, Var3: $var3"
+```
+
+```sh
+line="apple,banana,cherry"
+```
+Set IFS to a comma *only* for the read command
+```sh
+IFS=',' read -r field1 field2 field3 <<< "$line"
+
+echo "Field 1: $field1"
+echo "Field 2: $field2"
+echo "Field 3: $field3"
+```
+IFS is working same as split function in python.
+
+
+
 
