@@ -793,7 +793,42 @@ output
 ```sh
 /dev/fd/63
 ```
+## Recap
 
+Practice all the preious sections.
+
+# Chapter 5
+
+## Cut and Tr
+
+`cut` is used to extract sections from lines, while `tr` is used to translate, delete, or squeeze (compress) individual characters. 
+```sh
+echo file-name | tr : '\n'
+```
+they replace all the `:` in the file with `\n` new line.
+```sh
+echo file-name | cut -d , -f 2
+```
+`-d` is delimeter and `-f` is field.
+
+Extract the first five characters of a string
+```sh
+echo "Hello World" | cut -c 1-5
+Output: Hello
+```
+Extract the first and third fields using a space as a delimiter
+```sh
+echo "apple orange banana" | cut -d' ' -f1,3
+Output: apple banana
+```
+
+Extract fields 2 through 4 from a colon-delimited line
+```sh
+echo "user:x:1000:1000:User Name:/home/user:/bin/bash" | cut -d':' -f2-4
+Output: x:1000:1000
+```
+
+## Sed 
 
 
 
