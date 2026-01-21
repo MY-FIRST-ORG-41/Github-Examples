@@ -827,8 +827,122 @@ Extract fields 2 through 4 from a colon-delimited line
 echo "user:x:1000:1000:User Name:/home/user:/bin/bash" | cut -d':' -f2-4
 Output: x:1000:1000
 ```
+You also use cut like this.
+```sh
+cut -d' ' -f1,3 /etc/passwd or any file-path
+```
 
-## Sed 
+## Sed awk and grep
 
+if you check users in you system you use.
+```sh
+cat /etc/passwd
+```
+for help.
+```sh
+man 5 passwd
+```
+if you change the name of your system you use.
+```sh
+sed 's/changeable-system-name/given-name/'
+```
+if you change expression you use.
+```sh
+sed -e 's/bash/fish/'
+```
+`-e` for exprerssion now bash is changes as fish.
+if you don't want to use `-e` you use.
+```sh
+sed 's#/bin/bash#/bin/fish#'
+```
+if you don't want to use `#` sign you use `|` or `//`.
+
+Awk is a language but we learn bash so we touch a little bit of awk.
+```sh
+cat /etc/passwd | awk '{ print $0 }'
+cat /etc/passwd | awk '{ print $1 }'
+cat /etc/passwd | awk -F: '{ print $1 }'
+cat /etc/passwd | awk -F: '{ print $2 }'
+cat /etc/passwd | awk -F: '{ print $2, $7 }'
+cat /etc/passwd | awk -F: '{ printf("%s has shell %s\n", $2, $7); }'
+cat /etc/passwd | awk -F: '$1=="muneebahmad" { print $1, $7 }'
+```
+there is some command of awk.
+we have some usefull commands.
+```sh
+sort
+uniq
+uniq -c 
+```
+`-c` for count.
+we have a word count command.
+```sh
+wc
+wc -l
+wc -c
+wc -w
+```
+`-l` for lines
+`-c` for character
+`-w` for words
+`wc` for all
+
+## Find command
+
+if you find the files and directories in your current directry you use.
+```sh
+find .
+```
+`.` this shows you current directory and give you all the files of your current directory.
+
+if you find only regular files you use.
+```sh
+find . -type f
+find path-name -type f
+```
+if you find directory.
+```sh
+find . -type d
+```
+if you find siblings.
+```sh
+find . -type l
+```
+for empty directory.
+```sh
+find /var/empty/ -type d
+find /var/empty/ -type f
+```
+for help.
+```sh
+man find
+```
+`/` using forward slash you search in man page.
+```sh
+  b      block (buffered) special
+
+              c      character (unbuffered) special
+
+              d      directory
+
+              p      named pipe (FIFO)
+
+              f      regular file
+
+              l      symbolic link; this is never true if the -L option or the -follow option is  in  effect,  unless
+                     the symbolic link is broken.  If you want to search for symbolic links when -L is in effect, use
+                     -xtype.
+
+              s      socket
+
+              D      door (Solaris)
+```
+
+They give all the .txt files.
+```sh
+find path-name -type f -name '*.txt'
+find path-name -type f -name '*.txt' -exec echo i found a file {} yay
+```
+`-exec` give msg i found a file with all finding files and end with yay {} under brackets have file-path.
 
 
