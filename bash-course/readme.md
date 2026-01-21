@@ -244,7 +244,21 @@ we also use `>` like pipeline.
 ```sh
 cat file-name > empty-file-name
 ```
-
+and `<<` this is document.
+and `<<<` this is here string.
+```sh
+command <<< "string" 
+or
+command <<< $variable
+```
+```sh
+file_list="image.png,data.csv,notes.txt"
+grep -o "data.csv" <<< "$file_list"
+```
+`-o` means only matching this command means instead of printing the whole line of file_list only print the matiching pattern so the matching pattern is data.csv output.
+```sh
+data.csv
+```
 
 ## Paging Files
 
@@ -697,6 +711,88 @@ echo "Field 2: $field2"
 echo "Field 3: $field3"
 ```
 IFS is working same as split function in python.
+
+## Command subsitution
+
+Command substitution runs a command and replaces it with the actual text output. 
+
+Analogy: It’s like copying a value from a calculator and pasting it into a document.
+
+When to use: When you need a specific piece of data (like a date, username, or file count) to use as a string or store in a variable.
+
+Limitation: It waits for the command to finish completely before "pasting" the result, and it stores everything in memory. 
+
+The 'date' command runs, and the text "Wed Jan 21..." replaces the $(...) part.
+```sh
+echo "Hello $(whoami)"
+```
+output
+```sh
+Hello username
+```
+
+when you move file into any directory you use.
+```sh
+mv file-name directory-name/
+```
+
+when you move many file into any directory in one go you also use.
+```sh
+mv file-name1 file-name2 file-name3 directory-name/
+```
+
+when you move all the files in any directory in one go you use.
+```sh
+mv * directory-name/
+```
+## Arthematic operators 
+
+To check the documentaion page of this operation for information you use.
+```sh
+ help let
+ ```
+ ```sh
+ id++, id--      variable post-increment, post-decrement
+        ++id, --id      variable pre-increment, pre-decrement
+        -, +            unary minus, plus
+        !, ~            logical and bitwise negation
+        **              exponentiation
+        *, /, %         multiplication, division, remainder
+        +, -            addition, subtraction
+        <<, >>          left and right bitwise shifts
+        <=, >=, <, >    comparison
+        ==, !=          equality, inequality
+        &               bitwise AND
+        ^               bitwise XOR
+        |               bitwise OR
+        &&              logical AND
+        ||              logical OR
+        expr ? expr : expr
+                        conditional operator
+        =, *=, /=, %=,
+        +=, -=, <<=, >>=,
+        &=, ^=, |=      assignment
+```
+
+## Processes substituion
+Process substitution runs a command and replaces it with a temporary filename (usually something like /dev/fd/63). 
+
+Analogy: Instead of copying the text, it’s like creating a temporary live-feed document that other programs can read from as if it were a physical file.
+
+When to use: When a command requires a file path as an argument, but you want to give it the output of another command without actually saving a real file.
+
+Benefit: It works in "streaming" fashion. The reading command can start processing data immediately before the first command has even finished.
+
+syntax.
+```sh
+files=$(ls)
+echo "$files"
+```
+
+output
+```sh
+/dev/fd/63
+```
 
 
 
