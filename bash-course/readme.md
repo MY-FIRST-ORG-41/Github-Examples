@@ -945,4 +945,235 @@ find path-name -type f -name '*.txt' -exec echo i found a file {} yay
 ```
 `-exec` give msg i found a file with all finding files and end with yay {} under brackets have file-path.
 
+## Bash Arguments
+
+when you debug your bash script or to check the error clearly you use.
+```sh
+bash -x script-name
+```
+you also set this under the script.
+```sh
+set -x
+```
+to disable it use.
+```sh
+set +x
+```
+you also use ps4 variable in your script.
+```sh
+ps4='hello: ' bash -x script-name
+```
+```sh
+output
+hello: `content-of-bash-script`
+```
+
+If you check the syntax of you script you use `-n` is use for syntax checking if your syntax is incorrect they show you the syntax error only without printing the whole correct version and error version.
+```sh
+bash -n script-name
+```
+`-u` is use for check the undefined variable.
+```sh
+bash -u script-name
+```
+you set environment variable in script.
+```sh
+variable-name=data script-name
+```
+```
+export variable-name=data
+```
+when you declare this same variable under the script they use you environment variable data.
+
+you use shellcheck for bash and other scripts they check for prompts and errors.
+```sh
+shellcheck script-name
+```
+
+## Pipe status
+
+if you have very big and complex pipeline and you run `echo $?` this for check the pipeline and they always give you your pipeline is good because first command of your pipeline is working but there is any command in your pipeline is failing and you check it which one is fail and which one is correct you use.
+```sh
+echo "${PIPESTATUS[*]}"
+```
+If you have four command in your pipline the output is.
+```sh
+TRUE | FALSE | TRUE | FALSE
+  0      1       0      1
+```
+ `1` is for wrong and `0` is for correct.
+
+## Timing commands
+
+To check the time of your command that you run.
+```sh
+man time
+help time
+time command
+```
+In simple words, `htop` is the "Task Manager" for your Linux or Unix-based terminal. While a standard terminal just shows text, htop provides a colorful, interactive dashboard that shows exactly what your computer is doing in real-time. 
+```sh
+sudo apt install htop
+htop
+```
+Common Interactive Commands
+Key 	Function
+
+`htop -S`	Setup: Configure meters, colors, and visible columns.
+
+`htop -/`	Search: Find a specific process by name.
+
+`htop -\`	Filter: Show only processes matching a specific string.
+
+`htop -t`	Tree View: Group processes by parent-child relationships.
+
+`F6 / < / >`	Sort: Choose which column (e.g., MEM%, CPU%) to sort by.
+
+`htop -k`	Kill: Send signals (like SIGTERM or SIGKILL) to terminate a process.
+
+`htop -q`	Quit: Exit the htop application.
+
+`htop -u` User Filter: Show only processes owned by a specific user.
+
+`Space	Tag`: Select multiple processes to perform bulk actions.
+
+## Sudo
+`sudo` stands for "SuperUser Do."
+Think of it as the "Please" command for your computer.
+
+`How it works`:
+>Normally, your computer limits what you can do to prevent you from accidentally breaking something important (like deleting system files). sudo is how you tell the computer, "I am the administrator, and I know what I'm doing."
+
+`Without sudo`:
+>You are like a guest in a house. you can move the chairs or open the fridge, but you can’t knock down a wall or change the locks.
+
+`With sudo`:
+>You are the owner of the house. You have the "master key" to do anything, including major renovations.
+
+`Examples':
+
+`Normal command`: `apt install game`
+>`Result`: 
+>>Permission Denied (the computer won't let a "guest" install software).
+
+`With sudo`: `sudo apt install game`
+>`Result`: 
+>>The computer asks for your password, then installs the game.
+
+## Sourcing code
+
+In bash `.` and `source` are same.
+source is like using your script code in another empty script like use this at the top of your code script `source` and `.` and the name of your empty script.
+```sh
+help source
+help .
+source ./directory-name/empty-script-name
+. ./directory-name/empty-script-name
+. ./directory-name/empty-script-name || exit 1
+```
+and when you use `./directory-name/empty-script-name` they show all the data that have in your main script.
+
+you also use directory name like this.
+```sh
+libdirs=./directory-name
+. -p "$libdirs" script-name || exit 1
+source -p "$libdirs" script-name || exit 1
+```
+when you directly called some function in your script like python function `if name == '__main__'` so use.
+```sh
+if ! (return 2>/dev/null); then
+      function-name
+      #we are being called directly
+fi
+```
+## Curlies vs. parens
+
+`nl` is used for number lines
+```sh
+nl
+```
+`Parentheses ( ) — Subshell Example`
+>Commands inside parentheses run in a subshell. Any environment changes (like defining a variable or changing directories) are lost when the subshell finishes.
+```sh
+# Set a starting variable
+x=10
+
+# Run commands in a subshell
+( x=20; cd /tmp; echo "Inside subshell: x=$x, pwd=$(pwd)" )
+
+# Check values in the main shell
+echo "Outside subshell: x=$x, pwd=$(pwd)"
+```
+`output`
+```sh
+Inside subshell: x=20, pwd=/tmp
+Outside subshell: x=10, pwd=/home/user
+```
+`Curly Braces { } — Current Shell`
+
+`Example`
+>Commands inside curly braces run in the current shell environment. Changes persist after the block ends.
+
+`Syntax Rule`: 
+>You must have a space after { and a semicolon (or newline) before }.
+```sh
+# Set a starting variable
+y=10
+
+# Run commands in the current shell
+{ y=20; cd /tmp; echo "Inside braces: y=$y, pwd=$(pwd)"; }
+
+# Check values in the main shell
+echo "Outside braces: y=$y, pwd=$(pwd)"
+```
+`output`
+```sh
+Inside braces: y=20, pwd=/tmp
+Outside braces: y=20, pwd=/tmp
+```
+
+## Return vs output
+
+`return`
+>is used to set the exit status (numeric, 0-255) of a function, indicating success or failure.
+
+`Output`
+>(echo) sends data to stdout (text/string), allowing the caller to capture that information. 
+```sh
+#!/bin/bash
+
+# Function using BOTH return and output
+my_function() {
+    echo "Hello World"  # This is the OUTPUT (stdout)
+    return 3            # This is the RETURN STATUS ($?)
+}
+
+# 1. Capture the output in a variable
+captured_output=$(my_function)
+
+# 2. Get the return status ($?)
+my_function
+exit_status=$?
+
+echo "Output: $captured_output"
+echo "Exit Status: $exit_status"
+```
+`output`
+```sh
+Hello World
+Output: Hello World
+Exit Status: 3
+```
+
+## Recap
+practice the previous commands and then go to the next
+
+# Chapter 8
+
+## Parameter expansion
+
+
+
+
+
 
