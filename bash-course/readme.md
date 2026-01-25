@@ -1172,8 +1172,60 @@ practice the previous commands and then go to the next
 
 ## Parameter expansion
 
+when you get length of the string.
+```sh
+echo "${#variable-name}"
+```
+when you captialize the first letter of the string.
+```sh
+echo "${variable-name^}"
+echo "${variable-name^ch-name}
+```
+when you captialize the whole string
+```sh
+echo "${variable-name^^}"
+```
+when you captialize only the specific character in whole string.
+```sh
+echo "${variable-name^^ch-name}"
+```
+we also captialize more then one character in whole string.
+```sh
+echo "${variable-name^^[ch-names]}"
+```
+we also convert the capital to lower.
+```sh
+echo "${variable-name,,}"
+echo "${variable-name,}"
+echo "${variable-name,,capital-ch-name}"
+echo "${variable-name,,[capital-ch-names]}
+```
+we also set default value to a parameter.
+```sh
+name=$1
+name=${1:-Muneeb}
+```
+when you run the script without passing an argument Muneeb is running as default.
 
+we also set command or variable in this.
+```sh
+name=${1:-$USER}
+```
+When you run the script without giving an argument they show you the username they use the `$USER` command and when you give any name as argument they work as parameter and give you the name.
 
+if you use.
+```sh
+name=${1?}
+name={1?'you must supply a name'}
+```
+now when you run the script without passing an arrgument they give you an error message parameter value is not set by default argument is required.
+
+when you change the path name you use many things you also use this.
+```sh
+echo "${Path/o/a}"
+echo "${Path//o/a}"
+```
+if you find the directory 
 
 
 
