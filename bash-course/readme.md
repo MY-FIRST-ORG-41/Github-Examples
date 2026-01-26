@@ -1225,7 +1225,562 @@ when you change the path name you use many things you also use this.
 echo "${Path/o/a}"
 echo "${Path//o/a}"
 ```
-if you find the directory 
+if you find the directory path or file path or system path you use.
+```sh
+echo "$PATH"
+dirname "$PATH"
+basename "$PATH"
+```
+We also delete specific part form path using.
+```sh
+echo "${Path#*/}"
+echo "${Path##*/}"
+echo "${Path%/*}"
+echo "${Path//[af]/o}"
+echo "${Path//[af]/5}"
+echo "${Path//[afvc]/5}"
+echo "${Path//[afvc]/__&__}"
+echo "${Path//[afvc]/__\&__}"
+```
+`#` sign means delete form the left.
+`%` sign means delete form the right.
+`/` slash meand find and replace.
+
+When you make substrings in bash you use.
+```sh
+echo "${s:0}"
+echo "${s:1}"
+echo "${s:2}"
+echo "${s:3}"
+echo "${s:0:2}"
+echo "${s:3:5}"
+echo "${s:1:-1}"
+```
+`:` is used for define substring.
+we also go backwards by using `-`.
+
+
+## Parameter transformation
+
+Quotes the value in a format reusable as input.
+```sh
+${var@Q}
+```
+
+Expands backslash escape sequences (like \n) in the value.(Expands escapes if present)
+```sh	
+${var@E}
+```
+
+Expands the value as if it were a prompt string (e.g., \u@\h).	user@hostname (if set)
+```sh
+${var@P}	
+```
+
+Expands to an assignment statement or declare command.	var='hello world'
+```sh
+${var@A}	
+```
+
+Expands to a string representing the variable's attributes.	i (for integer), a (for array)
+```sh
+${var@a}
+```	
+
+Quotes array keys and values for reuse as input (indexed/associative).	[0]="val1" [1]="val2"
+```sh
+${var@K}
+```	
+
+Similar to K, but expands keys/values to separate words.
+```sh
+${var@k}	
+```
+
+## Array expansion
+
+`Values`
+>Expands to all elements, each as a separate word (Best practice).
+```sh
+"${arr[@]}"	
+```
+>Expands to all elements as a single word, joined by IFS (usually space).
+```sh
+"${arr[*]}"	
+```
+>Expands to the value at index or key i.
+```sh
+"${arr[i]}"	
+```
+
+`Metadata`
+>Returns the total number of elements in the array.
+```sh
+${#arr[@]}	
+```
+>Returns all indices (for indexed arrays) or keys (for associative arrays).
+```sh
+"${!arr[@]}"
+```	
+>Returns the character length of the string at index i.
+```sh
+${#arr[i]}	
+```
+
+`Slicing`	
+>Expands to len elements starting from index off.
+```sh
+"${arr[@]:off:len}"	
+```
+>Expands to all elements from index off to the end.
+```sh
+"${arr[@]:off}"	
+```
+
+`Search/Replace`
+>Replaces the first match of pat with rep in every element.
+```sh
+"${arr[@]/pat/rep}"	
+```
+>of pat with rep in every element.
+```sh
+"${arr[@]//pat/rep}"	
+```
+>Replaces pat with rep only if it matches the start of an element.
+```sh
+"${arr[@]/#pat/rep}"	
+```
+>Replaces pat with rep only if it matches the end of an element.
+```sh
+"${arr[@]/%pat/rep}"
+```	
+
+`Deletion/Stripping`
+>Removes the shortest prefix matching pat from every element.
+```sh
+"${arr[@]#pat}"
+```
+>Removes the longest prefix matching pat from every element.
+```sh
+"${arr[@]##pat}"	
+```
+>Removes the shortest suffix matching pat from every element.
+```sh
+"${arr[@]%pat}"	
+```
+>Removes the longest suffix matching pat from every element.
+```sh
+"${arr[@]%%pat}"	
+```
+
+`Case Mod`	
+>Capitalizes the first letter of every element.
+```sh
+"${arr[@]^}"	
+```
+>Converts every element to uppercase.
+```sh
+"${arr[@]^^}"
+```	
+>Lowercases the first letter of every element.
+```sh
+"${arr[@],}"
+```	
+>Converts every element to lowercase.
+```sh
+"${arr[@],,}"	
+```
+>If var="arr", this expands to all elements of arr (Bash 5.0+).
+```sh
+Indirect	${!var[@]}	
+```
+
+## Basic globbing
+
+When you seperate your files based as new line means you list your all files and all are in a new line.
+```sh
+ls -1 directory-name/
+ls -1 directory-name/*
+ls -1 directory-name/*.txt
+ls -1 directory-name/*.jpg
+ls -1 directory-name/file-name.*
+ls -1 directory-name/ba?.txt
+ls -1 directory-name/ba[abcr].txt
+ls -1 directory-name/ba[abcr].*
+echo directory-name/*
+printf '%s\n' directory-name/*
+```
+`ba?` means after ba is any character.
+`ba[abcr]` means after ba is in btw abc or r.
+
+## EXtended globbing
+`?(pattern-list)`
+>`Explanation`: 
+>>Matches zero or one occurrence of the specified patterns.
+
+>`Example`:
+```sh
+ls -1 photo?(s).jpg
+```
+>`Matches`: 
+```sh
+photo.jpg, photos.jpg.
+```
+>`Does NOT match`:
+```sh
+photoss.jpg
+```
+
+`*(pattern-list)`
+>`Explanation`: 
+>>Matches zero or more occurrences of the specified patterns.
+
+>`Example`:
+```sh
+ls -1 file*([0-9]).txt
+```
+>`Matches`:
+```sh
+file.txt, file1.txt, file123.txt.
+```
+>`Does NOT match`: 
+```sh
+fileA.txt
+```
+
+`+(pattern-list)`
+>`Explanation`: 
+>>Matches one or more occurrences of the specified patterns.
+
+>`Example`: 
+```SH
+ls -1 ab+(2|3).jpg
+```
+>`Matches`: 
+```SH
+ab2.jpg, ab3.jpg, ab222.jpg, ab33.jpg.
+```
+>`Does NOT match`: 
+```sh
+ab.jpg (requires at least one occurrence of 2 or 3).
+```
+
+`@(pattern-list)`
+>`Explanation`: 
+>>Matches exactly one of the specified patterns.
+
+>`Example`: 
+```sh
+ls -1 report.@(pdf|docx)
+```
+>`Matches`: 
+```sh
+report.pdf, report.docx.
+```
+>`Does NOT match`:
+```sh
+report.txt, report.pdfdocx. 
+```
+
+`!(pattern-list)`
+>`Explanation`: 
+>>Matches anything except the specified patterns.
+
+>`Example`: 
+```sh
+ls !(*.jpg|*.gif)
+```
+>`Matches`: 
+```sh
+file.txt, script.sh, README.md (everything that is not a .jpg or .gif).
+```
+>`Does NOT match`:
+```sh
+image.jpg, animation.gif. 
+```
+
+The shopt command is a Bash shell built-in that allows users to set and unset options and commands to control various aspects of the shell's behavior.
+```sh
+help shopt
+shopt
+shopt extglob
+shopt option-name
+```
+`-s` for  Set.
+`-u` for unset.
+`-p` for print.
+`-q` for quit.
+`-o` Restricts the optname values to those used by the set -o command. 
+
+Many shopt options are disabled by default.
+```sh
+shopt autocd
+shopt cdspell
+shopt extglob
+shopt dotglob
+shopt nullglob
+shopt cmdhist
+```
+>`autocd` If set, typing the name of a directory as a command will automatically cd to it.
+
+>`cdspell`	Attempts spelling correction on directory components in the cd command (interactive only).
+
+>`extglob`	Enables extended pattern matching features in the shell (e.g., ?(pattern-list), *(pattern-list), etc.).
+
+>`dotglob`	If set, filename patterns will match filenames beginning with a . (dot).
+
+>`nullglob`	Allows filename patterns that match no files to expand to a null string, rather than themselves.
+
+>`cmdhist`	Saves all lines of a multi-line command as a single history entry for easy re-editing.
+
+if you turned off and on history expansion.
+```sh
+set -H
+set -H
+```
+
+## Glob shell options
+
+`nullglob`
+>By default, if a glob pattern doesn't match any files, Bash returns the literal pattern itself. nullglob changes this so that unmatched patterns expand to nothing (an empty string). 
+
+>`Enable`: 
+```sh
+shopt -s nullglob
+```
+>`Default Behavior`: 
+```sh
+ls *.zip in an empty folder returns an error: ls: cannot access '*.zip': No such file or directory.
+```
+>`With nullglob`: 
+```sh
+ls *.zip expands to just ls, which lists everything in the current directory—a common side effect to be aware of.
+```
+Best Use: Use this in for loops to ensure the loop doesn't run if no files match the pattern. 
+
+`dotglob`
+>Standard globs (like *) ignore hidden files—those starting with a dot .. Enabling dotglob includes hidden files in pattern expansions. 
+
+>`Enable`: 
+```sh
+shopt -s dotglob
+```
+>`Default Behavior`: 
+```sh
+ls * ignores .bashrc or .gitignore.
+```
+>`With dotglob`: 
+```sh
+ls * will include .bashrc, .gitignore, and other hidden files.
+```
+Note: It still typically excludes the special directories . (current) and .. (parent) to prevent accidental recursive loops in commands like rm -rf *. 
+
+`globstar`
+>This option enables the ** pattern for recursive directory searching. Without it, ** behaves exactly like a single *. 
+>`Enable`: 
+```sh
+shopt -s globstar
+```
+>`Recursive Match`: 
+```sh
+ls **/*.txt matches every .txt file in the current directory and all of its subdirectories at any depth.
+```
+>`Directory Only`: 
+```sh
+Using **/ will limit the recursive expansion to only directories and subdirectories.
+```
+Limitation: It is powerful but can be slow in very large directory trees. 
+
+## Brace expansion
+
+This is a powerfull tool to creating a large number of files very fast.
+```sh
+echo file{1,2,3}.txt
+touch file{1..100}.txt
+mkdir -p project/{src,bin,lib}
+cp config.sh{,.bak}
+output
+file1.txt file2.txt file3.txt
+cp config.sh config.sh.bak
+```
+```sh
+Numeric: {1..5} → 1 2 3 4 5
+Alphabetic: {a..c} → a b c
+Zero-padding: {01..05} → 01 02 03 04 05
+Increments (Step):echo {0..10..2} → 0 2 4 6 8 10
+Nesting:echo {a,{b,c},d} → a b c d
+Cartesian Product:
+echo {A,B}{1,2} → A1 A2 B1 B2
+`seq` 1 20 seq for sequence
+```
+
+## Understanding printf
+
+```sh
+man 3 printf
+```
+```sh
+printf "%s" "Hello"
+printf "%d" 10
+printf "%.2f" 3.1415
+printf "%x" 255
+printf "%q" "a b"
+printf "100%%"
+printf -v variable-name 'hello %s' muneeb
+printf '%s\n' '$variable-name'
+```
+```sh
+%s	String
+%d	Signed integer
+%f	Floating point	
+%x	Hexadecimal
+%q	Shell-quoted string
+%%	Literal percent sign
+```
+
+## Date formatting
+
+```sh
+man strftime
+date
+date +FORMAT
+date +%F
+date "+%d/%m/%Y %H:%M:%S" 
+date -d "yesterday" +%Y-%m-%d
+printf "%(FORMAT)T" TIMESTAMP
+printf "%(%Y-%m-%d)T\n" -1
+current_date=$(date +%Y%m%d)
+printf -v my_date "%(%F)T" -1
+```
+`Common Format Specifiers:`
+
+%Y: 4-digit year (e.g., 2026)
+%m: Month of year (01–12)
+%d: Day of month (01–31)
+%H: Hour (00–23)
+%M: Minute (00–59)
+%S: Second (00–60)
+%F: Full date (YYYY-MM-DD); equivalent to %Y-%m-%d
+%T: Full time (HH:MM:SS); equivalent to %H:%M:%S
+%s: Seconds since Unix epoch (1970-01-01)
+
+## Regular expression
+
+Common Regex Metacharacters
+Bash uses standard POSIX ERE metacharacters:
+```sh 
+Anchors: ^ (start of line/string), $ (end of line/string).
+Quantifiers: * (0 or more), + (1 or more), ? (0 or 1), {n,m} (specific range).
+Wildcards: . (any single character except newline).
+Classes: [a-z] (range), [^0-9] (negated range).
+Alternation: | (logical OR)
+```
+
+## Using mapfile
+
+mapfile and readarray are same in bash.
+```sh
+help mapfile
+help readarray
+mapfile -t file-name
+mapfile -t -n 2 file-name 
+```
+`-t` is use for trim.
+`n 2` is use for select the no of lines.
+if you get more information about other flags use help mapfile.
+
+## Brackets vs test
+
+```sh
+type -a test
+type -a `[`
+type -a `[[`
+help test
+help `[`
+help `[[`
+```
+instead of using `>` or `<` sign to compare numbers use `-gt` if you don't want to use `-gt` use `(())` double parenthesis.
+
+single bracket and double bracket are same in bash but prefer to use double brackets because syntax is simple of double brackets.
+
+## Special strings
+
+`Special Parameters (Built-in Variables)`
+>These parameters are reserved by the shell to provide metadata about your script and its execution environment. 
+Parameter 	Description
+```sh
+$0	The name of the script being executed.
+$1 to $9	Positional arguments passed to the script.
+$#	The total number of arguments passed to the script.
+$*	All arguments as a single string (separated by the first character of IFS).
+$@	All arguments as separate quoted words.
+$?	The exit status of the most recently executed command (0 for success).
+$$	The Process ID (PID) of the current shell.
+$!	The PID of the most recently executed background process.
+$-	Current flags/options set for the shell.
+$_	The last argument of the previous command.
+```
+`2. ANSI-C Escape Sequences ($'...')`
+>These sequences represent non-printable or special formatting characters when used within the $'...' quoting syntax.
+```sh 
+Sequence 	Name	Result
+\n	Newline	Moves the cursor to the start of the next line.
+\t	Horizontal Tab	Inserts a horizontal tab space.
+\r	Carriage Return	Moves the cursor to the beginning of the current line.
+\a	Alert (Bell)	Produces an audible or visible alert.
+\\	Backslash	Represents a literal backslash \.
+\'	Single Quote	Represents a literal single quote '.
+\xhh	Hex Value	Character with the hex value hh.
+\uHHHH	Unicode	16-bit Unicode character (hex HHHH).
+```
+`3. Special Characters (Metacharacters)`
+>These characters have functional meanings in the shell and must be quoted (e.g., '*' or \*) if you want to use them literally. 
+```sh
+Character 	Shell Function
+#	Starts a comment.
+;	Command separator (allows multiple commands on one line).
+&	Runs a command in the background.
+**`	`**
+*	Wildcard: matches any string of characters.
+?	Wildcard: matches any single character.
+$	Starts a variable expansion or command substitution.
+> / <	Output/Input redirection.
+"	Partial quoting: preserves most special characters but allows $ and `.
+'	Full quoting: treats every character literally.
+```
+
+## Trap signals
+
+```sh
+help trap 
+trap -l
+```
+when you use your function value in the end of the output.
+```sh
+trap cleanup
+```
+when you run your script with info message you use.
+```sh
+trap fun-name debug
+```
+when you running your script like job you se.
+```sh
+trap SIGINFO
+trap SIGINT
+```
+
+when you kill anything that was running instead of stopping you use.
+```sh
+ctrl+z
+sleep 60
+kill %%
+kill %1
+```
+when you check the status of your jobs running you use.
+```sh
+jobs
+```
+
 
 
 
