@@ -2030,84 +2030,84 @@ ctrl+u
 `Cursor Movement`
 ```sh
 Shortcut 	Description
-Ctrl-a	Move to the beginning of the line.
-Ctrl-e	Move to the end of the line.
-Ctrl-b	Move back one character.
-Ctrl-f	Move forward one character.
-Alt-b	Move back one word.
-Alt-f	Move forward one word.
-Ctrl-] x	Move forward to the next occurrence of character x.
+Ctrl-a	   Move to the beginning of the line.
+Ctrl-e	   Move to the end of the line.
+Ctrl-b	   Move back one character.
+Ctrl-f	   Move forward one character.
+Alt-b	    Move back one word.
+Alt-f	    Move forward one word.
+Ctrl-] x	 Move forward to the next occurrence of character x.
 ```
 `Editing Text`
 ```sh
 Shortcut 	Description
 Ctrl-d	Delete the character under the cursor.
 Backspace	Delete the character before the cursor.
-Alt-d	Cut (kill) the word after the cursor.
-Ctrl-w	Cut (kill) the word before the cursor.
-Ctrl-u	Cut (kill) everything from the cursor to the beginning of the line.
-Ctrl-k	Cut (kill) everything from the cursor to the end of the line.
-Ctrl-y	Paste (yank) the last cut text at the cursor position.
-Ctrl-t	Transpose (swap) the character before the cursor with the one at the cursor.
-Alt-t	Transpose (swap) the word before the cursor with the one at/after the cursor.
-Ctrl-_	Undo the last editing command.
-Alt-r	Undo all changes to the line, restoring its initial state.
+Alt-d	    Cut (kill) the word after the cursor.
+Ctrl-w	   Cut (kill) the word before the cursor.
+Ctrl-u	   Cut (kill) everything from the cursor to the beginning of the line.
+Ctrl-k	   Cut (kill) everything from the cursor to the end of the line.
+Ctrl-y	   Paste (yank) the last cut text at the cursor position.
+Ctrl-t	   Transpose (swap) the character before the cursor with the one at the cursor.
+Alt-t    	Transpose (swap) the word before the cursor with the one at/after the cursor.
+Ctrl-_   	Undo the last editing command.
+Alt-r	    Undo all changes to the line, restoring its initial state.
 ```
 `History and Completion`
 ```sh
 Shortcut 	Description
-Ctrl-p or Up Arrow	Fetch the previous command from the history list.
-Ctrl-n or Down Arrow	Fetch the next command from the history list.
-Ctrl-r	Start a reverse incremental search through history.
-Alt-. or Alt-_	Insert the last argument of the previous command.
+Ctrl-p    or Up Arrow	Fetch the previous command from the history list.
+Ctrl-n    or Down Arrow	Fetch the next command from the history list.
+Ctrl-r	   Start a reverse incremental search through history.
+Alt-.     or Alt-_	Insert the last argument of the previous command.
 Tab	Attempt filename or command completion.
-Ctrl-l	Clear the screen, leaving the current line at the top.
-Ctrl-x Ctrl-e	Open the current command line in your default text editor ($EDITOR or $VISUAL).
+Ctrl-l	   Clear the screen, leaving the current line at the top.
+Ctrl-x    Ctrl-e	Open the current command line in your default text editor ($EDITOR or $VISUAL).
 ```
 `Emacs Mode (Default)`
 >These shortcuts work directly on the command line. 
 ```sh
 Category 	Shortcut	Action
-Movement	Ctrl-a	Move to beginning of the line
-Ctrl-e	Move to end of the line
-Ctrl-f	Move forward one character
-Ctrl-b	Move backward one character
-Alt-f	Move forward one word
-Alt-b	Move backward one word
-Ctrl-xx	Toggle between line start and current position
-Editing	Ctrl-d	Delete character under cursor
-Ctrl-h	Delete character before cursor (Backspace)
-Ctrl-k	Cut (kill) from cursor to end of line
-Ctrl-u	Cut (kill) from cursor to start of line
-Ctrl-w	Cut the previous word (using whitespace as boundary)
-Alt-d	Cut the word after the cursor
-Ctrl-y	Paste (yank) the last cut text
-Alt-y	Cycle through previous cuts and paste
-Ctrl-_	Undo the last change
-Alt-t	Swap (transpose) the last two words
-History	Ctrl-p	Previous command in history (Up arrow)
-Ctrl-n	Next command in history (Down arrow)
-Ctrl-r	Search history backwards (incremental)
-Ctrl-s	Search history forwards (incremental)
-Alt-.	Insert the last argument of the previous command
-Control	Tab	Auto-complete command or filename
-Ctrl-l	Clear the screen
-Ctrl-c	Cancel current process or clear line
-Ctrl-z	Suspend current process
+Movement   Ctrl-a	  Move to beginning of the line
+           Ctrl-e   Move to end of the line
+           Ctrl-f	  Move forward one character
+           Ctrl-b	  Move backward one character
+           Alt-f	   Move forward one word
+           Alt-b	   Move backward one word
+           Ctrl-xx	 Toggle between line start and current position
+Editing	   Ctrl-d	  Delete character under cursor
+           Ctrl-h	  Delete character before cursor (Backspace)
+           Ctrl-k	  Cut (kill) from cursor to end of line
+           Ctrl-u	  Cut (kill) from cursor to start of line
+           Ctrl-w	  Cut the previous word (using whitespace as boundary)
+           Alt-d	   Cut the word after the cursor
+           Ctrl-y	  Paste (yank) the last cut text
+           Alt-y	   Cycle through previous cuts and paste
+           Ctrl-_	  Undo the last change
+           Alt-t	   Swap (transpose) the last two words
+History	   Ctrl-p	  Previous command in history (Up arrow)
+           Ctrl-n	  Next command in history (Down arrow)
+           Ctrl-r	  Search history backwards (incremental)
+           Ctrl-s	  Search history forwards (incremental)
+           Alt-.	   Insert the last argument of the previous command
+Control	   Tab	     Auto-complete command or filename
+           Ctrl-l	  Clear the screen
+           Ctrl-c	  Cancel current process or clear line
+           Ctrl-z	  Suspend current process
 ```
 `Vi Mode (Command Mode)` 
 >After pressing ESC, you enter Command Mode with these standard Vi keys. 
 ```sh
 Category 	Shortcut	Action
-Movement	h, l	Move cursor left, right
-w, b	Move forward, backward one word
-0, $	Move to start, end of line
-Editing	i, a	Enter Insert Mode before/after cursor
-x	Delete character under cursor
-dd	Delete current line
-u	Undo last change
-v	Edit current line in full $EDITOR (e.g., Vim)
-History	k, j	Previous, next history command
+Movement	  h, l	    Move cursor left, right
+           w, b	    Move forward, backward one word
+           0, $	    Move to start, end of line
+Editing	   i, a	    Enter Insert Mode before/after cursor
+           x	       Delete character under cursor
+           dd	      Delete current line
+           u	       Undo last change
+           v	       Edit current line in full $EDITOR (e.g., Vim)
+History   	k, j    	Previous, next history command
 /	Search history backward
 ```
 
