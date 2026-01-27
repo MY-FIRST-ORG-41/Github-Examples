@@ -1781,6 +1781,334 @@ when you check the status of your jobs running you use.
 jobs
 ```
 
+## Named pipes
 
+```sh
+mkfifo ./pipe-name
+tmux att
+tmux new
+```
+Tmux used to split the terminal in sub terminals
+Install Tmux 
+```sh
+sudo apt-get install tmux
+```
+Split the terminal vertically (left and right panes):
+```sh
+Press Ctrl+b then %
+```
+Split the terminal horizontally (top and bottom panes):
+```sh
+Press Ctrl+b then " (double quote)
+```
+Navigate between panes:
+```sh
+Press Ctrl+b then an arrow key (up, down, left, or right).
+```
+Exit a pane:
+```sh
+Type exit in the pane you wish to close. 
+```
+GNU Screen
+Screen is another robust alternative that is often pre-installed on many systems. 
+Install GNU Screen (if not already installed):
+```sh
+On Ubuntu/Debian: sudo apt-get install screen
+```
+Enable horizontal split:
+```sh
+Press Ctrl+a then S (uppercase S).
+```
+Switch focus to the new region:
+```sh
+Press Ctrl+a then Tab.
+```
+Create a new shell in the new region:
+```sh
+Press Ctrl+a then c (lowercase c). 
+```
+Using Built-in Terminal Features
+Many modern terminal applications include built-in features for splitting windows or tabs without relying on a separate multiplexer. 
+GNOME Terminal (Ubuntu default):
+```sh
+Split horizontally: Shift+Ctrl+D
+Split vertically: Ctrl+b (or just open a new tab with Ctrl+Shift+T).
+```
+iTerm2 (macOS):
+```sh
+Split vertically: Cmd+D
+Split horizontally: Cmd+Shift+D
+```
+Windows Terminal (Windows 10/11):
+```sh
+Split vertically: Alt+Shift++ (plus sign)
+Split horizontally: Alt+Shift+- (minus sign)
+```
+Konsole (KDE):
+```sh
+Split vertically: Ctrl+(
+Split horizontally: Ctrl+)
+```
+
+## Color output
+
+In Bash, color and style are controlled by ANSI escape sequences. The standard format for these sequences is:
+```sh
+\e[<STYLE>;<FG_COLOR>;<BG_COLOR>m 
+```
+`Curl`
+```sh
+curl ysap.sh
+curl xmas.ysap.sh | bash
+```
+1. Basic Format Breakdown
+```sh
+\e[: Starts the escape sequence (can also use \033[ or \x1B[).
+```
+`STYLE`: 
+>Numeric code for text formatting (e.g., bold, underline).
+`FG_COLOR`: 
+>Numeric code for the text color.
+`BG_COLOR`: 
+>Numeric code for the background color.
+`m`: 
+>Terminates the escape sequence.
+\e[0m: The Reset code. Always use this at the end of a string to stop color bleeding. 
+
+Standard 16-Color Table
+These are the most compatible codes across different terminal types.
+```sh 
+Color 	Style (Normal/Bold)	Foreground (Text)	Background	High Intensity FG
+Black	0 / 1	30	40	90
+Red	0 / 1	31	41	91
+Green	0 / 1	32	42	92
+Yellow	0 / 1	33	43	93
+Blue	0 / 1	34	44	94
+Magenta	0 / 1	35	45	95
+Cyan	0 / 1	36	46	96
+White	0 / 1	37	47	97
+```
+Text Style Codes
+```sh
+Code 	Effect	Note
+0	Reset	Clears all styles and colors.
+1	Bold	Increases intensity.
+2	Dim	Faint text (limited support).
+3	Italic	Not universal.
+4	Underline	Standard underline.
+5	Blink	Often disabled.
+7	Inverse	Swaps FG and BG colors.
+9	Strikethrough	Limited terminal support.
+```
+```sh
+# Example: Bold Red text on a Green background
+echo -e "\e[1;31;42mThis is a test\e[0m"
+
+# Best Practice: Use variables
+RED='\e[31m'
+NC='\e[0m' # No Color
+printf "I ${RED}love${NC} Bash\n"
+```
+for making the commands little bit easier you use tput.
+```sh
+tput bold
+tput reset
+etc
+```
+## Cursor commands
+
+Cursor Controls
+```sh
+ESC Code Sequence	Description
+ESC[H	moves cursor to home position (0, 0)
+ESC[{line};{column}H
+ESC[{line};{column}f	moves cursor to line #, column #
+ESC[#A	moves cursor up # lines
+ESC[#B	moves cursor down # lines
+ESC[#C	moves cursor right # columns
+ESC[#D	moves cursor left # columns
+ESC[#E	moves cursor to beginning of next line, # lines down
+ESC[#F	moves cursor to beginning of previous line, # lines up
+ESC[#G	moves cursor to column #
+ESC[6n	request cursor position (reports as ESC[#;#R)
+ESC M	moves cursor one line up, scrolling if needed
+ESC 7	save cursor position (DEC)
+ESC 8	restores the cursor to the last saved position (DEC)
+ESC[s	save cursor position (SCO)
+ESC[u	restores the cursor to the last saved position (SCO)
+```
+
+## Is a TTY
+
+```sh
+man isatty
+```
+
+## PS1 variable
+
+In Bash, PS1 (Prompt String 1) is the primary environment variable that defines the appearance of your command-line prompt. 
+1. Common Escape Sequences 
+Bash interprets special backslash-escaped characters in the PS1 string to display dynamic information. 
+```sh
+Sequence 	Expanded Meaning
+\u	Current username
+\h	Hostname (up to the first '.')
+\w	Full path of current working directory (~ for home)
+\W	Basename of the current directory only
+\d	Current date (e.g., "Mon Sep 20")
+\t	Current time in 24-hour HH:MM:SS format
+\$	Displays # for root user, $ for regular users
+\n	Inserts a newline
+```
+how to test and set ps1
+```sh
+PS1="\u@\h:\w\$ "
+```
+when you get the last argument of the last command that was run you use.
+```sh
+vim !$
+```
+```sh
+set -H
+set +H
+```
+when you search the command under the history you use.
+```sh
+ctrl+r
+```
+
+## Customzing bash
+
+in cd we have autocomplete option if you give some wrong alphabets of your directory-name cd give you a correct directory-name.
+```sh
+cd directory-name
+```
+when we go to the current directory we use
+```sh
+..
+```
+when we highlight any output from any script we use.
+```sh
+hl data
+hl '[data]'
+ls -lha
+colordiff file-name-1 file-name-2
+truecolor-rainbow
+```
+
+## Readline shortcuts
+
+```sh
+up-arrow-key
+down-arrow-key
+```
+if you check the previous and afterward commands in history you use.
+```sh
+alt+p
+alt+n
+```
+if you go backward and forward fast word by word you use.
+```sh
+alt+f
+alt+b
+```
+when i use swapping btw two words i use.
+```sh
+alt+t
+```
+when i want to delete one word back i use.
+```sh
+alt+d
+ctrl+w
+```
+To go start and end of the command efficiently and delete all the data or commands form your terminal you use.
+```sh
+ctrl+a
+ctrl+e
+ctrl+u
+```
+`Cursor Movement`
+```sh
+Shortcut 	Description
+Ctrl-a	Move to the beginning of the line.
+Ctrl-e	Move to the end of the line.
+Ctrl-b	Move back one character.
+Ctrl-f	Move forward one character.
+Alt-b	Move back one word.
+Alt-f	Move forward one word.
+Ctrl-] x	Move forward to the next occurrence of character x.
+```
+`Editing Text`
+```sh
+Shortcut 	Description
+Ctrl-d	Delete the character under the cursor.
+Backspace	Delete the character before the cursor.
+Alt-d	Cut (kill) the word after the cursor.
+Ctrl-w	Cut (kill) the word before the cursor.
+Ctrl-u	Cut (kill) everything from the cursor to the beginning of the line.
+Ctrl-k	Cut (kill) everything from the cursor to the end of the line.
+Ctrl-y	Paste (yank) the last cut text at the cursor position.
+Ctrl-t	Transpose (swap) the character before the cursor with the one at the cursor.
+Alt-t	Transpose (swap) the word before the cursor with the one at/after the cursor.
+Ctrl-_	Undo the last editing command.
+Alt-r	Undo all changes to the line, restoring its initial state.
+```
+`History and Completion`
+```sh
+Shortcut 	Description
+Ctrl-p or Up Arrow	Fetch the previous command from the history list.
+Ctrl-n or Down Arrow	Fetch the next command from the history list.
+Ctrl-r	Start a reverse incremental search through history.
+Alt-. or Alt-_	Insert the last argument of the previous command.
+Tab	Attempt filename or command completion.
+Ctrl-l	Clear the screen, leaving the current line at the top.
+Ctrl-x Ctrl-e	Open the current command line in your default text editor ($EDITOR or $VISUAL).
+```
+`Emacs Mode (Default)`
+>These shortcuts work directly on the command line. 
+```sh
+Category 	Shortcut	Action
+Movement	Ctrl-a	Move to beginning of the line
+Ctrl-e	Move to end of the line
+Ctrl-f	Move forward one character
+Ctrl-b	Move backward one character
+Alt-f	Move forward one word
+Alt-b	Move backward one word
+Ctrl-xx	Toggle between line start and current position
+Editing	Ctrl-d	Delete character under cursor
+Ctrl-h	Delete character before cursor (Backspace)
+Ctrl-k	Cut (kill) from cursor to end of line
+Ctrl-u	Cut (kill) from cursor to start of line
+Ctrl-w	Cut the previous word (using whitespace as boundary)
+Alt-d	Cut the word after the cursor
+Ctrl-y	Paste (yank) the last cut text
+Alt-y	Cycle through previous cuts and paste
+Ctrl-_	Undo the last change
+Alt-t	Swap (transpose) the last two words
+History	Ctrl-p	Previous command in history (Up arrow)
+Ctrl-n	Next command in history (Down arrow)
+Ctrl-r	Search history backwards (incremental)
+Ctrl-s	Search history forwards (incremental)
+Alt-.	Insert the last argument of the previous command
+Control	Tab	Auto-complete command or filename
+Ctrl-l	Clear the screen
+Ctrl-c	Cancel current process or clear line
+Ctrl-z	Suspend current process
+```
+`Vi Mode (Command Mode)` 
+>After pressing ESC, you enter Command Mode with these standard Vi keys. 
+```sh
+Category 	Shortcut	Action
+Movement	h, l	Move cursor left, right
+w, b	Move forward, backward one word
+0, $	Move to start, end of line
+Editing	i, a	Enter Insert Mode before/after cursor
+x	Delete character under cursor
+dd	Delete current line
+u	Undo last change
+v	Edit current line in full $EDITOR (e.g., Vim)
+History	k, j	Previous, next history command
+/	Search history backward
+```
 
 
